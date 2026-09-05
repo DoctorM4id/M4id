@@ -1,0 +1,14 @@
+{
+  "package": "dev.doctorm4id.kambrik.internal.mixins",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "${java}",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "StructurePoolAccessor",
+    "AbstractCriterionTriggerer"
+  ],
+  "client": []
+}

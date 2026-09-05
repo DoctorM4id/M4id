@@ -1,0 +1,72 @@
+package dev.doctorm4id.m4id
+
+import dev.doctorm4id.m4id.ext.ResourceLocation
+import dev.doctorm4id.m4id.logging.M4idLoggingApi
+import dev.doctorm4id.m4id.message.M4idMessageApi
+import dev.doctorm4id.m4id.platform.Platform
+import org.apache.logging.log4j.LogManager
+
+//? fabric {
+
+import dev.doctorm4id.m4id.platform.fabric.FabricPlatform
+import dev.doctorm4id.m4id.serial.M4idSerialApi
+import dev.doctorm4id.m4id.util.M4idBlockUtil
+import dev.doctorm4id.m4id.util.M4idPoolBlocks
+import dev.doctorm4id.m4id.util.M4idTickUtil
+import net.minecraft.BlockUtil
+
+//?} neoforge {
+
+/*import dev.doctorm4id.stoatlib.platform.neoforge.NeoforgePlatform
+
+*///? }
+
+@SuppressWarnings("LoggingSimilarMessage")
+object M4id {
+
+	const val MOD_ID: String = /*$ mod_id*/"m4id";
+	const val MOD_VERSION: String =  /*$ mod_version*/"0.1.0";
+	const val MOD_FRIENDLY_NAME: String =  /*$ mod_name*/"M4id";
+
+	private val PLATFORM: Platform = createPlatformInstance()
+
+	val Logger = LogManager.getLogger("M4id")
+
+	fun idOf(unique: String) = ResourceLocation(MOD_ID, unique)
+
+	val Serial: M4idSerialApi by lazy {
+		M4idSerialApi()
+	}
+
+	val Message: M4idMessageApi by lazy {
+		M4idMessageApi()
+	}
+
+	val Logging: M4idLoggingApi by lazy {
+		M4idLoggingApi()
+	}
+
+	fun onInitialize() {
+		Logger.info( "Initializing {} on {}", MOD_ID, xplat().loader() )
+		Logger.debug( "{}: { version: {}; friendly_name: {} }", MOD_ID, MOD_VERSION, MOD_FRIENDLY_NAME )
+	}
+
+	fun onInitializeClient() {
+		Logger.info( "Initializing {} Client on {}", MOD_ID, xplat().loader() )
+		Logger.debug( "{}: { version: {}; friendly_name: {} }", MOD_ID, MOD_VERSION, MOD_FRIENDLY_NAME )
+	}
+
+	fun xplat(): Platform { return PLATFORM }
+
+	private fun createPlatformInstance(): Platform {
+		//? fabric {
+
+		return FabricPlatform()
+
+		//? } neoforge {
+
+		/*return NeoforgePlatform()
+
+		*///?}
+	}
+}
