@@ -2,8 +2,8 @@ package dev.doctorm4id.m4id.platform.fabric
 
 //? fabric {
 
-import io.ejekta.kambrik.internal.KambrikCommands
-import io.ejekta.kambrikx.data.KambrikPersistence
+import dev.doctorm4id.m4id.data.M4idPersistence
+import dev.doctorm4id.m4id.internal.M4idCommands
 import net.fabricmc.api.EnvType
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
@@ -12,16 +12,16 @@ import net.fabricmc.loader.api.FabricLoader
 class FabricEventSubscriber {
 
 	fun registerEvents() {
-		CommandRegistrationCallback.EVENT.register(CommandRegistrationCallback(KambrikCommands::register))
+		CommandRegistrationCallback.EVENT.register(CommandRegistrationCallback(M4idCommands::register))
 
 		ServerLifecycleEvents.SERVER_STARTED.register {
-			KambrikPersistence.loadServerResults()
+			M4idPersistence.loadServerResults()
 		}
 
 		ServerLifecycleEvents.SERVER_STOPPING.register {
-			KambrikPersistence.saveAllServerResults()
+			M4idPersistence.saveAllServerResults()
 			if (FabricLoader.getInstance().environmentType != EnvType.CLIENT) {
-				KambrikPersistence.saveAllConfigResults()
+				M4idPersistence.saveAllConfigResults()
 			}
 		}
 	}

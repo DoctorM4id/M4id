@@ -4,8 +4,8 @@ package dev.doctorm4id.m4id.platform.fabric.command
 
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
-import io.ejekta.kambrik.command.ArgDsl
-import io.ejekta.kambrik.command.KambrikCommandApi
+import dev.doctorm4id.m4id.command.ArgDsl
+import dev.doctorm4id.m4id.command.M4idCommandApi
 import net.fabricmc.api.EnvType
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
@@ -21,7 +21,7 @@ import net.fabricmc.loader.api.FabricLoader
  * @param toDispatcher The dispatcher of this command. This is provided in a [CommandRegistrationCallback][net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback]
  * @param func The [Command DSL](https://kambrik.ejekta.io/apis/stable/Command.html) describing your function.
  */
-fun KambrikCommandApi.addClientCommand(
+fun M4idCommandApi.addClientCommand(
     baseCommandName: String,
     func: ArgDsl<FabricClientCommandSource, LiteralArgumentBuilder<FabricClientCommandSource>>
 ) {

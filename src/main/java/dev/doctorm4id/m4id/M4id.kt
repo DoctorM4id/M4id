@@ -1,6 +1,8 @@
 package dev.doctorm4id.m4id
 
+import dev.doctorm4id.m4id.command.M4idCommandApi
 import dev.doctorm4id.m4id.ext.ResourceLocation
+import dev.doctorm4id.m4id.input.M4idInputApi
 import dev.doctorm4id.m4id.logging.M4idLoggingApi
 import dev.doctorm4id.m4id.message.M4idMessageApi
 import dev.doctorm4id.m4id.platform.Platform
@@ -38,12 +40,20 @@ object M4id {
 		M4idSerialApi()
 	}
 
+	val Command: M4idCommandApi by lazy {
+		M4idCommandApi()
+	}
+
 	val Message: M4idMessageApi by lazy {
 		M4idMessageApi()
 	}
 
 	val Logging: M4idLoggingApi by lazy {
 		M4idLoggingApi()
+	}
+
+	val Input: M4idInputApi by lazy {
+		M4idInputApi()
 	}
 
 	fun onInitialize() {
