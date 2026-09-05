@@ -1,6 +1,7 @@
 package dev.doctorm4id.m4id
 
 import dev.doctorm4id.m4id.command.M4idCommandApi
+import dev.doctorm4id.m4id.criterion.M4idCriterionApi
 import dev.doctorm4id.m4id.ext.ResourceLocation
 import dev.doctorm4id.m4id.input.M4idInputApi
 import dev.doctorm4id.m4id.logging.M4idLoggingApi
@@ -35,6 +36,10 @@ object M4id {
 	val Logger = LogManager.getLogger("M4id")
 
 	fun idOf(unique: String) = ResourceLocation(MOD_ID, unique)
+
+	val Criterion: M4idCriterionApi by lazy {
+		M4idCriterionApi()
+	}
 
 	val Serial: M4idSerialApi by lazy {
 		M4idSerialApi()

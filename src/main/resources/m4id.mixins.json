@@ -1,5 +1,5 @@
 {
-  "package": "dev.doctorm4id.kambrik.internal.mixins",
+  "package": "dev.doctorm4id.m4id.internal.mixins",
   "required": true,
   "minVersion": "0.8",
   "compatibilityLevel": "${java}",
