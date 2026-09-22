@@ -40,7 +40,7 @@ abstract class M4idMsg : CustomPacketPayload {
         M4idBridge.sendMsgToServer(this)
     }
 
-    override fun type(): CustomPacketPayload.Type<out TestMsg> {
-        return M4id.Message.payloadMap[this::class] as CustomPacketPayload.Type<out TestMsg>
+    override fun type(): CustomPacketPayload.Type<out M4idMsg> {
+        return M4id.Message.payloadMap[this::class] as CustomPacketPayload.Type<out M4idMsg>
     }
 }
