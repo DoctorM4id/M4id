@@ -2,7 +2,7 @@ package dev.doctorm4id.m4id.platform.neoforge
 
 //? neoforge {
 
-/*import dev.doctorm4id.stoatlib.platform.Platform
+/*import dev.doctorm4id.m4id.platform.Platform
 import net.neoforged.fml.ModList
 import net.neoforged.fml.loading.FMLLoader
 

@@ -92,6 +92,7 @@ configurations.all {
 
 dependencies {
     minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
+
     if (sc.current.parsed < "26") {
         mappings(loom.layered {
             officialMojangMappings()
@@ -99,9 +100,10 @@ dependencies {
                 parchment("org.parchmentmc.data:parchment-${prop("deps.parchment")}@zip")
         })
     }
+
     modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
-    //  implementation(libs.moulberry.mixinconstraints)
-    // include(libs.moulberry.mixinconstraints)
     modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
-    // modLocalRuntime("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
+
+    implementation(libs.serialization.core)
+    include(libs.serialization.core)
 }

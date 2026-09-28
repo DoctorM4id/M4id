@@ -24,7 +24,7 @@ class M4idSerialApi {
         contextual(AABB::class, BoxSerializer)
         contextual(Vec3::class, Vec3DSer)
         contextual(CompoundTag::class, CompoundTagSerializer)
-        contextualCodec(ItemStack.CODEC)
+        //contextualCodec(ItemStack.CODEC)
         contextual(ItemStack::class, ItemStack.CODEC.toSerializer(JsonObject.serializer()))
     }
 

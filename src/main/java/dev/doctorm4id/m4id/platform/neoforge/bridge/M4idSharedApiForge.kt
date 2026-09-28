@@ -2,13 +2,13 @@ package dev.doctorm4id.m4id.platform.neoforge.bridge
 
 //? neoforge {
 
-/*import dev.doctorm4id.stoatlib.registration.StoatAutoRegistrar
-import io.ejekta.kambrik.Kambrik
-import io.ejekta.kambrik.bridge.BridgePlatform
+/*import dev.doctorm4id.m4id.M4id
+import dev.doctorm4id.m4id.registration.M4idAutoRegistrar
 import dev.doctorm4id.m4id.bridge.M4idSharedApi
-import io.ejekta.kambrik.ext.register
-import io.ejekta.kambrik.message.KambrikMsg
-import io.ejekta.kambrikx.serial.toSimplePacketCodec
+import dev.doctorm4id.m4id.ext.register
+import dev.doctorm4id.m4id.message.M4idMsg
+import dev.doctorm4id.m4id.platform.fabric.bridge.BridgePlatform
+import dev.doctorm4id.m4id.serial.toSimplePacketCodec
 import kotlinx.serialization.KSerializer
 import net.minecraft.core.Registry
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
@@ -24,7 +24,7 @@ import net.neoforged.neoforge.network.handling.ServerPayloadContext
 import net.neoforged.neoforge.network.registration.HandlerThread
 import java.nio.file.Path
 
-class KambrikSharedApiForge() : KambrikSharedApi {
+class M4idSharedApiForge : M4idSharedApi {
 
     companion object {
         // NeoForge expects a shared payload protocol version here, not a namespace.
@@ -32,7 +32,7 @@ class KambrikSharedApiForge() : KambrikSharedApi {
     }
 
     init {
-        Kambrik.Logger.debug("Kambrik Shared API (Forge) Initialized.")
+        M4id.Logger.debug("M4id Shared API (Forge) Initialized.")
     }
 
     override val platform: BridgePlatform
@@ -50,16 +50,16 @@ class KambrikSharedApiForge() : KambrikSharedApi {
 
     // Messaging
 
-    private val clientMsgMap = mutableListOf<ForgeMsgData<KambrikMsg>>()
-    private val serverMsgMap = mutableListOf<ForgeMsgData<KambrikMsg>>()
+    private val clientMsgMap = mutableListOf<ForgeMsgData<M4idMsg>>()
+    private val serverMsgMap = mutableListOf<ForgeMsgData<M4idMsg>>()
 
-    data class ForgeMsgData<M : KambrikMsg>(val ser: KSerializer<M>, val type: CustomPacketPayload.Type<M>) {
+    data class ForgeMsgData<M : M4idMsg>(val ser: KSerializer<M>, val type: CustomPacketPayload.Type<M>) {
         val streamCodec = ser.toSimplePacketCodec()
         val payloadHandler = IPayloadHandler<M> { p0, p1 ->
             p1.enqueueWork {
                 when (p1) {
                     is ClientPayloadContext -> { p0.onClientReceived() }
-                    is ServerPayloadContext -> { p0.onServerReceived(KambrikMsg.MsgContext(p1.player())) }
+                    is ServerPayloadContext -> { p0.onServerReceived(M4idMsg.MsgContext(p1.player())) }
                     else -> throw Exception("No valid payload context for this message serializer: $ser")
                 }
             }.exceptionally { throwable ->
@@ -73,51 +73,50 @@ class KambrikSharedApiForge() : KambrikSharedApi {
     fun registerPayloads(event: RegisterPayloadHandlersEvent) {
         val registrar = event.registrar(NETWORK_PROTOCOL_VERSION).executesOn(HandlerThread.NETWORK)
         for (serverMsg in serverMsgMap) {
-            Kambrik.Logger.info("Registering ServerMsg: ${serverMsg.type.id}")
+            M4id.Logger.info("Registering ServerMsg: ${serverMsg.type.id}")
             registrar.playToServer(serverMsg.type, serverMsg.streamCodec, serverMsg.payloadHandler)
         }
         for (clientMsg in clientMsgMap) {
-            Kambrik.Logger.info("Registering ClientMsg: ${clientMsg.type.id}")
+            M4id.Logger.info("Registering ClientMsg: ${clientMsg.type.id}")
             registrar.playToClient(clientMsg.type, clientMsg.streamCodec, clientMsg.payloadHandler)
         }
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <M : KambrikMsg> registerClientMessage(
+    override fun <M : M4idMsg> registerClientMessage(
         serializer: KSerializer<M>,
         id: CustomPacketPayload.Type<M>
     ): Boolean {
-        clientMsgMap.add(ForgeMsgData(serializer as KSerializer<KambrikMsg>, id as CustomPacketPayload.Type<KambrikMsg>))
+        clientMsgMap.add(ForgeMsgData(serializer as KSerializer<M4idMsg>, id as CustomPacketPayload.Type<M4idMsg>))
         return true
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun <M : KambrikMsg> registerServerMessage(
+    override fun <M : M4idMsg> registerServerMessage(
         serializer: KSerializer<M>,
         id: CustomPacketPayload.Type<M>
     ): Boolean {
-        serverMsgMap.add(ForgeMsgData(serializer as KSerializer<KambrikMsg>, id as CustomPacketPayload.Type<KambrikMsg>))
+        serverMsgMap.add(ForgeMsgData(serializer as KSerializer<M4idMsg>, id as CustomPacketPayload.Type<M4idMsg>))
         return true
     }
 
-    override fun <M : KambrikMsg> sendMsgToServer(msg: M) {
+    override fun <M : M4idMsg> sendMsgToServer(msg: M) {
         PacketDistributor.sendToServer(msg)
     }
 
-    override fun <M : KambrikMsg> sendMsgToClient(msg: M, player: ServerPlayer) {
+    override fun <M : M4idMsg> sendMsgToClient(msg: M, player: ServerPlayer) {
         PacketDistributor.sendToPlayer(player, msg)
     }
 
-    // TODO check this
+    // TODO check this. Edit: Twin I DUNNO WHAT TO CHECK. :c
     override fun getConfigDir(): Path {
         return Path.of("config")
     }
 
-    override fun <T> register(autoReg: StoatAutoRegistrar, reg: Registry<T>, thingId: String, obj: T): T {
+    override fun <T> register(autoReg: M4idAutoRegistrar, reg: Registry<T>, thingId: String, obj: T): T {
         reg.register(ResourceLocation.fromNamespaceAndPath(autoReg.getId(), thingId), obj)
         return obj
     }
-
 }
 
 *///? }
