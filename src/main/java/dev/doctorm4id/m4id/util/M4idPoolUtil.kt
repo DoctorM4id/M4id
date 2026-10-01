@@ -2,57 +2,62 @@
 
 package dev.doctorm4id.m4id.util
 
-import net.minecraft.world.level.block.Block
 import kotlin.random.Random
 
-object M4idPoolBlocks {
+class M4idPool<T> {
 
-	private var totalWeight: Int = 0
-	private var entries: ArrayList<M4idPoolEntry> = ArrayList()
+	private var totalWeight = 0
+	private var entries = ArrayList<M4idPoolEntry<T>>()
 
 	/**
 	 * Adds an entry
-	 * @param blockIn the block
+	 * @param value the value, (Ex: Block)
 	 * @param weightIn the weight of the entry
 	 */
-	fun addEntry(blockIn: Block?, weightIn: Int) {
+	fun addEntry(value: T, weightIn: Int) {
 		if (weightIn <= 0) return
+
 		totalWeight += weightIn
-		val poolEntry = M4idPoolEntry(blockIn, weightIn)
+		val poolEntry = M4idPoolEntry(value, weightIn)
 		entries.add(poolEntry)
 	}
 
 	/**
 	 * Adds an experimental entry
-	 * @param blockIn the block
+	 * @param value the value, (Ex: Block)
 	 * @param weightIn the weight of the entry
 	 */
-	fun addExperimentalEntry(blockIn: Block?, weightIn: Int) {
+	fun addExperimentalEntry(value: T, weightIn: Int) {
 		if (weightIn <= 0) return
+
 		totalWeight += weightIn
-		val poolEntry = M4idPoolEntry(blockIn, weightIn)
+
+		val poolEntry = M4idPoolEntry(value, weightIn)
 		poolEntry.requireExperimentalMode()
 		entries.add(poolEntry)
 	}
 
 	/**
 	 * Returns a random entry.
-	 * @return a random block.
+	 * @return a random value.
 	 */
-	fun getRandomEntry(): Block? {
+	fun getRandomEntry(): T? {
 		if (totalWeight <= 0 || entries.isEmpty()) return null
 
 		val randomValue = Random.nextInt(totalWeight)
 		var cumulativeSum = 0
+
 		for (entry in entries) {
 			cumulativeSum += entry.weight
-			if (randomValue < cumulativeSum) return entry.block
+
+			if (randomValue < cumulativeSum) return entry.value
 		}
-		return entries.lastOrNull()?.block
+
+		return entries.lastOrNull()?.value
 	}
 }
 
-class M4idPoolEntry(val block: Block?, var weight: Int) : Comparable<M4idPoolEntry> {
+class M4idPoolEntry<T>(val value: T, var weight: Int) : Comparable<M4idPoolEntry<T>> {
 
 	var requiresExperimentalMode: Boolean = false
 
@@ -64,7 +69,7 @@ class M4idPoolEntry(val block: Block?, var weight: Int) : Comparable<M4idPoolEnt
 		return requiresExperimentalMode
 	}
 
-	override fun compareTo(other: M4idPoolEntry): Int {
+	override fun compareTo(other: M4idPoolEntry<T>): Int {
 		return this.weight.compareTo(other.weight)
 	}
 }
