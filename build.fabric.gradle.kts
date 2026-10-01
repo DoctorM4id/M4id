@@ -1,6 +1,11 @@
 plugins {
     id("mod-platform")
     id("dev.kikugie.loom-back-compat")
+    `maven-publish`
+}
+
+base {
+    archivesName = prop("mod.id")
 }
 
 val jvmTargetVersion = if (sc.current.parsed >= "1.20.5") 21 else 17
@@ -19,6 +24,19 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(jvmTargetVersion)
+}
+
+group = prop("mod.group")
+version = prop("mod.version")
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+
+            artifactId = "${prop("mod.id")}-${sc.current.project}"
+        }
+    }
 }
 
 stonecutter {

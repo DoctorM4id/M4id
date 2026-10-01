@@ -4,6 +4,14 @@ plugins {
     id("mod-platform")
     id("net.neoforged.moddev")
     id("kotlin")
+    `maven-publish`
+}
+
+group = "com.github.DoctorM4id.M4id"
+version = prop("mod.version")
+
+base {
+    archivesName = prop("mod.id")
 }
 
 val jvmTargetVersion = if (sc.current.parsed >= "1.20.5") 21 else 17
@@ -22,6 +30,19 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(jvmTargetVersion)
+}
+
+group = prop("mod.group")
+version = prop("mod.version")
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+
+            artifactId = "${prop("mod.id")}-${sc.current.project}"
+        }
+    }
 }
 
 stonecutter {

@@ -42,3 +42,15 @@ for (version in stonecutter.versions.map { it.version }.distinct()) tasks.regist
     group = "publishing"
     dependsOn(stonecutter.tasks.named("publishMods") { metadata.version == version })
 }
+
+tasks.register("publishM4idToMavenLocal") {
+    group = "publishing"
+    description = "Should publish like 1.20.1-fabric, 1.20.1-neoforge."
+
+    dependsOn(
+        stonecutter.versions.map { node ->
+            project(":${node.project}").tasks.named("publishToMavenLocal")
+        }
+    )
+}
+
