@@ -1,8 +1,6 @@
-package io.ejekta.kambrik.ext
+package dev.doctorm4id.m4id.ext
 
-import net.minecraft.core.component.DataComponentMap
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.core.component.PatchedDataComponentMap
 import net.minecraft.world.item.ItemStack
 
 fun <T> ItemStack.edit(componentType: DataComponentType<T>, func: (curr: T?) -> T?) {

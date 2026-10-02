@@ -34,7 +34,7 @@ publishing {
         create<MavenPublication>("maven") {
             from(components["java"])
 
-            artifactId = "${prop("mod.id")}-${sc.current.project}"
+            artifactId = sc.current.project
         }
     }
 }

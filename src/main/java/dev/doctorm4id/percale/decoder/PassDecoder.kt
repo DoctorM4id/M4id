@@ -1,17 +1,14 @@
-package io.ejekta.percale.decoder
+package dev.doctorm4id.percale.decoder
 
 import com.mojang.serialization.DataResult
 import com.mojang.serialization.DynamicOps
-import io.ejekta.percale.Percale
+import dev.doctorm4id.percale.Percale
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.AbstractDecoder
 import kotlinx.serialization.modules.SerializersModule
-import net.minecraft.nbt.Tag
-import net.minecraft.resources.RegistryOps
-import kotlin.io.encoding.ExperimentalEncodingApi
 
 @OptIn(ExperimentalSerializationApi::class)
 abstract class PassDecoder<T>(open val ops: DynamicOps<T>, val level: Int, serialMod: SerializersModule) : AbstractDecoder() {
@@ -100,8 +97,18 @@ abstract class PassDecoder<T>(open val ops: DynamicOps<T>, val level: Int, seria
             val ops = inOps
 
             return when (descriptor.kind) {
-                StructureKind.CLASS, PolymorphicKind.OPEN, PolymorphicKind.SEALED -> PassObjectDecoder(ops, input, level + 1, serialMod)
-                is PrimitiveKind, SerialKind.ENUM, SerialKind.CONTEXTUAL  -> PassPrimitiveDecoder(ops, input, level + 1, serialMod)
+                StructureKind.CLASS, PolymorphicKind.OPEN, PolymorphicKind.SEALED -> PassObjectDecoder(
+                    ops,
+                    input,
+                    level + 1,
+                    serialMod
+                )
+                is PrimitiveKind, SerialKind.ENUM, SerialKind.CONTEXTUAL  -> PassPrimitiveDecoder(
+                    ops,
+                    input,
+                    level + 1,
+                    serialMod
+                )
                 StructureKind.MAP -> PassMapDecoder(ops, input, level + 1, serialMod)
                 StructureKind.LIST -> PassListDecoder(ops, input, level + 1, serialMod)
                 else -> throw SerializationException("Unsupported descriptor type for our DynamicOps encoder: ${descriptor.kind}, ${descriptor.kind::class}")

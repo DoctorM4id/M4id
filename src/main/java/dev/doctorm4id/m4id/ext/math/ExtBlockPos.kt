@@ -11,3 +11,5 @@ fun BlockPos.asVec3i(): Vec3i {
 fun BlockPos.toVec3(): Vec3 {
     return Vec3(x.toDouble(), y.toDouble(), z.toDouble())
 }
+
+fun BlockPos.isInBounds(min: BlockPos, max: BlockPos): Boolean = this.x in min.x..max.x && this.y in min.y..max.y && this.z in min.z..max.z

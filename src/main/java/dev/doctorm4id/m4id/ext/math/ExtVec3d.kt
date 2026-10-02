@@ -13,8 +13,6 @@ fun Vec3.axialMask(dir: Direction): Vec3 {
     return multiply(dir.toVec3().abs())
 }
 
-
-
 /* 1 -> 0, 0 -> 1, used for [Vec3d::flipMask] */
 private fun intSwitch(i: Int): Int {
     return (abs(i) - 1) * -1
@@ -69,6 +67,7 @@ fun min(vecA: Vec3, vecB: Vec3): Vec3 {
     )
 }
 
+
 // Other Functions
 
 fun Vec3.abs(): Vec3 {
@@ -91,3 +90,8 @@ fun Vec3.rounded(): Vec3 {
     return Vec3(round(x), round(y), round(z))
 }
 
+// Mayb add these some day.
+// rotateX
+// rotateY
+// normalize
+// lerp

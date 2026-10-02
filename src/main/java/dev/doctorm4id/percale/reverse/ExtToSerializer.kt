@@ -1,21 +1,17 @@
-package io.ejekta.percale.reverse
+package dev.doctorm4id.percale.reverse
 
 import com.google.gson.JsonElement
 import com.mojang.serialization.Codec
 import com.mojang.serialization.DynamicOps
 import com.mojang.serialization.JsonOps
-import com.mojang.serialization.codecs.ListCodec
-import io.ejekta.percale.Percale
-import io.ejekta.percale.decoder.PassDecoder
-import io.ejekta.percale.encoder.PassEncoder
+import dev.doctorm4id.percale.decoder.PassDecoder
+import dev.doctorm4id.percale.encoder.PassEncoder
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.IntArraySerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.LongArraySerializer
 import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
@@ -26,7 +22,6 @@ import net.minecraft.nbt.Tag
 import net.minecraft.resources.RegistryOps
 import net.minecraft.util.ExtraCodecs
 import net.minecraft.util.NullOps
-import net.minecraft.world.item.ItemStack
 
 fun <A> Codec<A>.toSerializer(like: KSerializer<*>): KSerializer<A> {
     return toSerializer(like.descriptor)

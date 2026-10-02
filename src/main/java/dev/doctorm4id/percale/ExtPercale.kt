@@ -1,10 +1,10 @@
-package io.ejekta.percale
+package dev.doctorm4id.percale
 
 import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.*
-import io.ejekta.percale.encoder.PassEncoder
-import io.ejekta.percale.decoder.PassDecoder
-import io.ejekta.percale.reverse.toSerializer
+import dev.doctorm4id.percale.encoder.PassEncoder
+import dev.doctorm4id.percale.decoder.PassDecoder
+import dev.doctorm4id.percale.reverse.toSerializer
 import kotlinx.serialization.*
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule

@@ -27,8 +27,21 @@ import net.minecraft.resources.ResourceLocation
 import java.util.function.Predicate
 
 /**
- * Nearly the entirety of Kambrik's Command DSL
- * @see [Command DSL Docs](https://kambrik.ejekta.io/apis/stable/Command)
+ * The fluffing command DSL builder thingy.
+ *
+ * Usage:
+ * ```kotlin
+ * M4id.Command.addCommand("test", dispatcher) {
+ *     "subcommand" {
+ *         argString("name") runs { ctx ->
+ *             println(ctx())
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * @param SRC Command source type
+ * @param A ArgumentBuilder type
  */
 class M4idArgBuilder<SRC, A : ArgumentBuilder<SRC, *>>(var arg: A) :
     ArgumentBuilder<SRC, M4idArgBuilder<SRC, A>>() {

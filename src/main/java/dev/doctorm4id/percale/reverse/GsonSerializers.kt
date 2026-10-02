@@ -1,4 +1,4 @@
-package io.ejekta.percale.reverse
+package dev.doctorm4id.percale.reverse
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
@@ -7,10 +7,8 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import com.google.gson.internal.LazilyParsedNumber
 import com.mojang.serialization.DynamicOps
-import com.mojang.serialization.JsonOps
-import io.ejekta.percale.decoder.PassDecoder
-import io.ejekta.percale.encoder.PassEncoder
-import io.ejekta.percale.serialize
+import dev.doctorm4id.percale.decoder.PassDecoder
+import dev.doctorm4id.percale.encoder.PassEncoder
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -21,11 +19,7 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.NbtOps
-import net.minecraft.nbt.StringTag
-import net.minecraft.nbt.Tag
-import net.minecraft.resources.RegistryOps
+import kotlin.collections.iterator
 
 object GsonStringSerializer : KSerializer<JsonPrimitive> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("percale.GsonPrimitiveString", PrimitiveKind.STRING)

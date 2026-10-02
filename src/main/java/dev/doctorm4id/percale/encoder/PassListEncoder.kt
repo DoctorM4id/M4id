@@ -1,9 +1,8 @@
-package io.ejekta.percale.encoder
+package dev.doctorm4id.percale.encoder
 
 import com.mojang.serialization.DynamicOps
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.CompositeEncoder
-import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 
 class PassListEncoder<T>(override val ops: DynamicOps<T>, serialMod: SerializersModule) : PassEncoder<T>(ops, serialMod) {

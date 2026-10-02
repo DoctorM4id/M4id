@@ -1,8 +1,8 @@
-package io.ejekta.percale.reverse
+package dev.doctorm4id.percale.reverse
 
 import com.mojang.serialization.DynamicOps
-import io.ejekta.percale.decoder.PassDecoder
-import io.ejekta.percale.encoder.PassEncoder
+import dev.doctorm4id.percale.decoder.PassDecoder
+import dev.doctorm4id.percale.encoder.PassEncoder
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -16,6 +16,7 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import net.minecraft.nbt.*
+import kotlin.collections.iterator
 
 object NbtStringSerializer : KSerializer<StringTag> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("percale.StringTag", PrimitiveKind.STRING)

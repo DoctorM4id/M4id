@@ -1,11 +1,10 @@
-package io.ejekta.percale.decoder
+package dev.doctorm4id.percale.decoder
 
 import com.mojang.serialization.DataResult
 import com.mojang.serialization.DynamicOps
-import io.ejekta.percale.Percale
+import dev.doctorm4id.percale.Percale
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.CompositeDecoder
-import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
 
 class PassMapDecoder<T>(override val ops: DynamicOps<T>, override val input: T, level: Int, serialMod: SerializersModule) : PassDecoder<T>(ops, level, serialMod) {

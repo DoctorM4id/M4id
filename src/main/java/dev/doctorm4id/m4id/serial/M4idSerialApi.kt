@@ -3,9 +3,8 @@ package dev.doctorm4id.m4id.serial
 import dev.doctorm4id.m4id.serial.serializers.BoxSerializer
 import dev.doctorm4id.m4id.serial.serializers.IdentitySer
 import dev.doctorm4id.m4id.serial.serializers.Vec3DSer
-import io.ejekta.percale.contextualCodec
-import io.ejekta.percale.reverse.CompoundTagSerializer
-import io.ejekta.percale.reverse.toSerializer
+import dev.doctorm4id.percale.reverse.CompoundTagSerializer
+import dev.doctorm4id.percale.reverse.toSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.json.JsonObject
@@ -40,8 +39,18 @@ class M4idSerialApi {
         }
     }
 
-    fun networkingFormat(): Json {
-        return Json { serializersModule = networkSerializers }
+    fun networkingFormat(default: Boolean = true): Json {
+        //return Json { serializersModule = networkSerializers }
+        return Json {
+            serializersModule = if (default) {
+                SerializersModule {
+                    include(DefaultSerializers)
+                    include(networkSerializers)
+                }
+            } else {
+                networkSerializers
+            }
+        }
     }
 
     val Format = formatFor(DefaultSerializers) {

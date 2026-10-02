@@ -1,4 +1,4 @@
-package io.ejekta.percale.encoder
+package dev.doctorm4id.percale.encoder
 
 import com.mojang.serialization.DynamicOps
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -7,6 +7,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.StructureKind
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.modules.SerializersModule
+import kotlin.collections.iterator
 
 @OptIn(ExperimentalSerializationApi::class)
 class PassObjectEncoder<T>(override val ops: DynamicOps<T>, serialMod: SerializersModule) : PassEncoder<T>(ops, serialMod) {

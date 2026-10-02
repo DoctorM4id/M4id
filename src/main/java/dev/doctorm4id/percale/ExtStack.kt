@@ -1,4 +1,4 @@
-package io.ejekta.percale
+package dev.doctorm4id.percale
 
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.world.item.ItemStack

@@ -1,4 +1,4 @@
-package io.ejekta.kambrik.ext
+package dev.doctorm4id.m4id.ext
 
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.Tag

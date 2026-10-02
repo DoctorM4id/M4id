@@ -3,7 +3,7 @@ package dev.doctorm4id.m4id.registration
 import dev.doctorm4id.m4id.M4id
 import dev.doctorm4id.m4id.ext.ResourceLocation
 import dev.doctorm4id.m4id.internal.M4idMarker
-import io.ejekta.percale.toCodec
+import dev.doctorm4id.percale.toCodec
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.modules.EmptySerializersModule

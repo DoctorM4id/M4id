@@ -1,4 +1,4 @@
-package io.ejekta.percale
+package dev.doctorm4id.percale
 
 import java.io.OutputStream
 import java.util.*

@@ -24,7 +24,7 @@ object M4idRegistrar {
     }
 
     fun <T> register(requester:  M4idAutoRegistrar, reg: Registry<T>, itemId: String, obj: Lazy<T>): Lazy<T> {
-        M4id.Logger.debug("StoatLibrary registering '${requester::class.qualifiedName} for '$itemId' for auto-registration")
+        M4id.Logger.debug("M4id registering '${requester::class.qualifiedName} for '$itemId' for auto-registration")
         this[requester].content.add(RegistrationEntry(reg, itemId, obj))
         return obj
     }
@@ -32,7 +32,12 @@ object M4idRegistrar {
     fun doRegistrationsFor(modId: String) {
         registrars.filter { it.key.getId() == modId }.forEach { (_, items) ->
             for (item in items.content) {
-                item.register(modId)
+                try {
+                    item.register(modId)
+                } catch (e: Exception) {
+                    M4id.Logger.error("Unable to register ${item.itemId} 3:", e)
+                    throw IllegalStateException("Registration failed for ${item.itemId} 3:", e)
+                }
             }
         }
     }

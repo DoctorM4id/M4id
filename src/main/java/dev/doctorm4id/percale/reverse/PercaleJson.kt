@@ -1,10 +1,10 @@
-package io.ejekta.percale.reverse
+package dev.doctorm4id.percale.reverse
 
 import com.google.gson.JsonParser
 import com.mojang.serialization.DynamicOps
 import com.mojang.serialization.JsonOps
-import io.ejekta.percale.deserialize
-import io.ejekta.percale.serialize
+import dev.doctorm4id.percale.deserialize
+import dev.doctorm4id.percale.serialize
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
